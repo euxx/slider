@@ -53,6 +53,7 @@ body {
     font-size: 2rem;
     position: absolute;
     top: 49%;
+    cursor: pointer;
 }
 .arrow:hover {
     color: #bbb;
@@ -78,6 +79,7 @@ body {
     display: inline-block;
     border-radius: 100%;
     margin: 0 4px;
+    cursor: pointer;
 }
 .circle:hover {
     background: #ccc;
