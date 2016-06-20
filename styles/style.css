@@ -28,3 +28,60 @@ body {
 
 }
 
+.frame {
+    width: 90%;
+    height: 400px;
+    position: relative;
+    border: 1px solid #eee;
+    margin: 5px auto;
+}
+
+.pictures {
+
+}
+.slide {
+    width: 100%;
+    height: 400px;
+    display: none;
+}
+.image-focus {
+    display: block;
+}
+
+.arrow {
+    color: #ddd;
+    font-size: 2rem;
+    position: absolute;
+    top: 49%;
+}
+.arrow:hover {
+    color: #bbb;
+}
+.previous {
+    left: 10px;
+}
+.next {
+    right: 10px;
+}
+
+.dots {
+    width: 90px;
+    height: 20px;
+    position: absolute;
+    left: 45%;
+    bottom: 10px;
+}
+.circle {
+    width: 10px;
+    height: 10px;
+    background: #eee;
+    display: inline-block;
+    border-radius: 100%;
+    margin: 0 4px;
+}
+.circle:hover {
+    background: #ccc;
+}
+.dot-focus {
+    background: #ccc;
+}
