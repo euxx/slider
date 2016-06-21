@@ -1,14 +1,24 @@
 
 $(function() {
 	startSlide();
-	$(".previous").click(previous);
+	stopSlide();
+
+	$(".prev").click(prev);
 	$(".next").click(next);
 	$(".circle").click(circle);
+	$(".slider").hover(
+		function() {
+			stopSlide();
+		},
+		function() {
+			startSlide();
+		}
+	);
 });
 
-let sliderIni = 1;
 let sliderNext = 1;
 let count = $(".slider").size();
+let newSlide;
 
 function startSlide() {
 	if (sliderNext > count) {
@@ -24,14 +34,33 @@ function startSlide() {
 	setTimeout(startSlide, 5000);
 }
 
-function next() {
-	let imgNum;
-	imgNum = $(".image-focus").eq();
-	console.log(imgNum);
+function stopSlide() {
+	window.clearTimeout(startSlide);
 }
 
-function previous() {
+function showSlide(slider) {
+	stopSlide();
+	if (slider > count) {
+		slider = 1;
+	} else if (slider < 1) {
+		slider = count;
+	}
+	$(".slider").fadeOut(400);
+	$(".image-" + slider).fadeIn(2000);
+	$(".dot").removeClass("dot-focus");
+	$(".circle-" + slider).addClass("dot-focus");
+	sliderNext = slider + 1;
+	startSlide();
+}
 
+function next() {
+	newSlide = sliderNext + 1;
+	showSlide(newSlide);
+}
+
+function prev() {
+	newSlide = sliderNext - 1;
+	showSlide(newSlide);
 }
 
 function circle() {

@@ -53,7 +53,7 @@ body {
 .arrow:hover {
     color: #ccc;
 }
-.previous {
+.prev {
     left: 10px;
 }
 .next {
