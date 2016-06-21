@@ -1,73 +1,74 @@
 
 $(function() {
-	$(".image-" + sliderIni).fadeIn(1700);
-	startSlide();
+	dot.first().addClass("focus");
+	slider.first().fadeIn(1700);
+
+	loop = setInterval(function() {
+		startSlide();
+	}, 4000);
 
 	$(".prev").click(prev);
 	$(".next").click(next);
-	$(".circle").click(circle);
-	$(".slider").hover(
+	dot.click(circle);
+
+	slider.hover(
 		function() {
 			stopSlide();
 		},
 		function() {
-			startSlide();
+			resetSlide();
 		}
 	);
 });
 
-const count = $(".slider").size();
-let sliderIni = 1;
-let sliderNext = 2;
-let newSlide;
+const lastDot = $(".dot").size() - 1;
+const slider = $(".slider");
+const dot = $(".dot");
+let sliderNext;
 let loop;
 
+function showSlide(sliderNext) {
+	slider.fadeOut(400).eq(sliderNext).fadeIn(1700);
+	dot.removeClass("focus").eq(sliderNext).addClass("focus");
+}
+
 function startSlide() {
-
-	loop = setInterval(function() {
-		if (sliderNext > count) {
-			sliderIni = 1;
-			sliderNext = 1;
-		}
-		$(".slider").fadeOut(400);
-		$(".image-" + sliderNext).fadeIn(1700);
-		$(".dot").removeClass("dot-focus");
-		$(".circle-" + sliderNext).addClass("dot-focus");
-		sliderIni = sliderNext;
-		sliderNext++;
-
-	}, 4000);
+	sliderNext = $(".focus").index();
+	sliderNext === lastDot ? sliderNext = 0 : sliderNext = sliderNext + 1;
+	showSlide(sliderNext);
 }
 
 function stopSlide() {
 	window.clearInterval(loop);
 }
 
-function showSlide(slider) {
-	stopSlide();
-	if (slider > count) {
-		slider = 1;
-	} else if (slider < 1) {
-		slider = count;
-	}
-	$(".slider").fadeOut(400);
-	$(".image-" + slider).fadeIn(1700);
-	$(".dot").removeClass("dot-focus");
-	$(".circle-" + slider).addClass("dot-focus");
-	sliderNext = slider + 1;
-	// startSlide();
+function resetSlide() {
+	window.clearInterval(loop);
+	loop = setInterval(function() {
+		startSlide();
+	}, 4000);
 }
 
 function next() {
-	newSlide = sliderIni + 1;
-	showSlide(newSlide);
+	startSlide();
+	resetSlide();
 }
 
 function prev() {
-	newSlide = sliderIni - 1;
-	showSlide(newSlide);
+	sliderNext = $(".focus").index();
+	if (sliderNext === 0) {
+		sliderNext = lastDot;
+	} else {
+		sliderNext = sliderNext - 1;
+	}
+	showSlide(sliderNext);
+	resetSlide();
 }
 
 function circle() {
-
+	if (!$(this).hasClass("focus")) {
+		sliderNext = $(this).index();
+		showSlide(sliderNext);
+		resetSlide();
+	}
 }
